@@ -57,4 +57,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['panel'] = 'backend/dashboard';
 $route['panel/products'] = 'backend/products';
 $route['panel/product-variations'] = 'backend/product_variations';
+$route['panel/settings'] = 'backend/settings';
 

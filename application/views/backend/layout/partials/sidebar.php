@@ -24,6 +24,12 @@
                 Product Variations
             </a>
         </li>
+        <li>
+            <a rel="dofollow" title="Settings" href="<?= base_url("panel/settings") ?>" class="nav-link <?= $this->uri->segment(2) == "settings" ? "active" : "link-dark" ?>">
+                <i class="fa fa-cogs me-3"></i>
+                Settings
+            </a>
+        </li>
     </ul>
     <hr>
     <div class="dropdown">
