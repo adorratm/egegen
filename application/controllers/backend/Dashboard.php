@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller
+class Dashboard extends CI_Controller
 {
 
 	/**
@@ -26,6 +26,8 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 		$this->viewData = new stdClass();
+		$this->viewData->viewFolder = "dashboard";
+		$this->viewData->subViewFolder = "list";
 	}
 
 	public function index()
@@ -35,6 +37,6 @@ class Home extends CI_Controller
 
 	public function render()
 	{
-		$this->load->view('frontend/layout/index', (array)$this->viewData);
+		$this->load->view('backend/layout/index', (array)$this->viewData);
 	}
 }
