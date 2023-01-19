@@ -41,10 +41,11 @@
             <li><a target="_blank" rel="nofollow" title="Github" class="dropdown-item" href="https://github.com/adorratm"><i class="fa fa-github"></i> Github</a></li>
             <li><a target="_blank" rel="nofollow" title="Linkedin" class="dropdown-item" href="https://linkedin.com/in/emrekilic98"><i class="fa fa-linkedin"></i> Linkedin</a></li>
             <li><a target="_blank" rel="nofollow" title="Instagram" class="dropdown-item" href="https://instagram.com/adorratm"><i class="fa fa-instagram"></i> Instagram</a></li>
+            <li><a target="_blank" rel="nofollow" title="Egegen" class="dropdown-item" href="<?= $settings->company_url ?>"><img data-src="<?= get_picture("settings", $settings->img_url) ?>" width="14" height="16" class="img-fluid lazyload"> <?= $settings->company_name ?></a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li><a target="_blank" rel="nofollow" title="Egegen" class="dropdown-item" href="<?= $settings->company_url ?>"><img data-src="<?= get_picture("settings", $settings->img_url) ?>" width="14" height="16" class="img-fluid lazyload"> <?= $settings->company_name ?></a></li>
+            <li><a rel="dofollow" title="<?= lang("logout") ?>" class="dropdown-item" href="<?= base_url("panel/logout") ?>"><i class="fa fa-power-off"></i> <?= lang("logout") ?></a></li>
         </ul>
     </div>
 </div>

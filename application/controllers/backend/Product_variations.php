@@ -28,6 +28,9 @@ class Product_variations extends CI_Controller
 		$this->viewData = new stdClass();
 		$this->viewData->viewFolder = "product-variations";
 		$this->viewData->subViewFolder = "list";
+		if (!get_active_user()) :
+            redirect(base_url("panel/login"));
+        endif;
 		$this->viewData->settings = get_settings();
 	}
 

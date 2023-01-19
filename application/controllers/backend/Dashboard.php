@@ -28,6 +28,9 @@ class Dashboard extends CI_Controller
 		$this->viewData = new stdClass();
 		$this->viewData->viewFolder = "dashboard";
 		$this->viewData->subViewFolder = "list";
+		if (!get_active_user()) :
+            redirect(base_url("panel/login"));
+        endif;
 		$this->viewData->settings = get_settings();
 	}
 

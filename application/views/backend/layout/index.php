@@ -17,6 +17,7 @@
         </div>
     </main>
     <?php $this->load->view("backend/layout/partials/scripts_bottom") ?>
+    <?php $this->load->view("backend/layout/partials/alert") ?>
 </body>
 
 </html>

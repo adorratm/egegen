@@ -53,8 +53,10 @@ $route['default_controller'] = 'backend/dashboard/';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-
 $route['panel'] = 'backend/dashboard';
+$route['panel/login'] = 'backend/login';
+$route['panel/do-login'] = 'backend/login/do_login';
+$route['panel/logout'] = 'backend/login/logout';
 $route['panel/products'] = 'backend/products';
 $route['panel/product-variations'] = 'backend/product_variations';
 $route['panel/settings'] = 'backend/settings';

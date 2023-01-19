@@ -31,7 +31,7 @@ class Migration_Create_user extends CI_Migration
             ],
             'password' => [
                 'type' => 'VARCHAR',
-                'constraint' => '32',
+                'constraint' => '255',
                 'null' => TRUE,
             ],
         ]);
