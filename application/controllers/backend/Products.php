@@ -28,6 +28,7 @@ class Products extends CI_Controller
 		$this->viewData = new stdClass();
 		$this->viewData->viewFolder = "products";
 		$this->viewData->subViewFolder = "list";
+		$this->viewData->settings = get_settings();
 	}
 
 	public function index()

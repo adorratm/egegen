@@ -482,7 +482,7 @@ function get_picture($path = "", $picture = "")
 function userRole()
 {
     $t = &get_instance();
-    $c = $t->general_model->get_all("user_role", null, null, ['isActive' => 1]);
+    $c = $t->general_model->get_all("user_role", null, null, ['status' => 1]);
     $roles = [];
     if (!empty($c)) :
         foreach ($c as $v) :
@@ -490,6 +490,12 @@ function userRole()
         endforeach;
     endif;
     $t->session->set_userdata('user_roles', $roles);
+}
+
+function get_settings(){
+    $t = &get_instance();
+    $settings = $t->general_model->get("settings", null, ['status' => 1]);
+    if ($settings) return $settings;
 }
 
 function get_active_user()

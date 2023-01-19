@@ -3,7 +3,7 @@
 
 
 <!-- Title -->
-<title><?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : "Egegen Job Application Task")) ?></title>
+<title><?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : $settings->project_title)) ?></title>
 <!-- Title -->
 
 <!-- Meta Data -->
@@ -37,16 +37,16 @@
 <meta property="og:locale" content="tr_TR">
 <meta property="og:url" content="<?= (!empty($og_url) ? clean($og_url) : clean(base_url())) ?>" />
 <meta property="og:type" content="<?= (!empty($og_type) ? clean($og_type) : "website") ?>" />
-<meta property="og:title" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : "Egegen Job Application Task")) ?>" />
+<meta property="og:title" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : $settings->project_title)) ?>" />
 <meta property="og:description" content="<?= (!empty($og_description) ? clean($og_description) : clean(@$meta_desc)) ?>" />
-<meta property="og:image" content="<?= !empty($og_image) ? clean(@$og_image) : base_url("public/images/logo.png"); ?>" />
+<meta property="og:image" content="<?= !empty($og_image) ? clean(@$og_image) : get_picture("settings", $settings->img_url); ?>" />
 <meta property="og:image:secure_url" content="<?= clean(@$og_image) ?>" />
-<meta name="twitter:title" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : "Egegen Job Application Task")) ?>">
+<meta name="twitter:title" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : $settings->project_title)) ?>">
 <meta name="twitter:description" content="<?= (!empty($og_description) ? clean($og_description) : clean(@$meta_desc)) ?>">
 <meta name="twitter:image" content="<?= clean(@$og_image) ?>">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:site_name" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : "Egegen Job Application Task")) ?>">
-<meta name="twitter:image:alt" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : "Egegen Job Application Task")) ?>">
+<meta property="og:site_name" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : $settings->project_title)) ?>">
+<meta name="twitter:image:alt" content="<?= (!empty($meta_title) ? stripslashes($meta_title) : (!empty($og_title) ? stripslashes($og_title) : $settings->project_title)) ?>">
 <meta name="googlebot" content="archive,follow,imageindex,index,odp,snippet,translate">
 <meta name="publisher" content="Emre KILIÇ, emrekilic19983@gmail.com" />
 <link rel="canonical" href="<?= (!empty($og_url) ? clean($og_url) : clean(base_url())) ?>" />
@@ -56,7 +56,7 @@
 <link rel="preconnect" href="<?= base_url() ?>">
 <link rel="dns-prefetch" href="<?= base_url() ?>">
 <!-- Favicon -->
-<link rel="shortcut icon" sizes="32x32" href="<?= base_url("public/images/logo.png"); ?>" type="<?= @image_type_to_mime_type(@exif_imagetype(base_url("public/images/logo.png"))) ?>">
-<link rel="icon" sizes="32x32" href="<?= base_url("public/images/logo.png"); ?>" type="<?= @image_type_to_mime_type(@exif_imagetype(base_url("public/images/logo.png"))) ?>">
-<link rel="apple-touch-icon" sizes="32x32" href="<?= base_url("public/images/logo.png"); ?>" type="<?= @image_type_to_mime_type(@exif_imagetype(base_url("public/images/logo.png"))) ?>">
+<link rel="shortcut icon" sizes="32x32" href="<?= get_picture("settings", $settings->img_url); ?>" type="<?= @image_type_to_mime_type(@exif_imagetype(get_picture("settings", $settings->img_url))) ?>">
+<link rel="icon" sizes="32x32" href="<?= get_picture("settings", $settings->img_url); ?>" type="<?= @image_type_to_mime_type(@exif_imagetype(get_picture("settings", $settings->img_url))) ?>">
+<link rel="apple-touch-icon" sizes="32x32" href="<?= get_picture("settings", $settings->img_url); ?>" type="<?= @image_type_to_mime_type(@exif_imagetype(get_picture("settings", $settings->img_url))) ?>">
 <!-- META TAGS -->

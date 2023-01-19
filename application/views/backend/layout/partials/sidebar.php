@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light w-25">
     <a href="<?= base_url("panel") ?>" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none w-100">
-        <img data-src="<?= get_picture("settings", "logo.png") ?>" alt="Egegen Job Application Task" class="img-fluid lazyload" width="100" height="75">
-        <span class="fs-5 fw-bold flex-fill text-center">Egegen Job Application Task</span>
+        <img data-src="<?= get_picture("settings", $settings->img_url) ?>" alt="<?= $settings->project_title ?>" class="img-fluid lazyload" width="100" height="75">
+        <span class="fs-5 fw-bold flex-fill text-center"><?= $settings->project_title ?></span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -44,7 +44,7 @@
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li><a target="_blank" rel="nofollow" title="Egegen" class="dropdown-item" href="https://egegen.com"><img data-src="<?= get_picture("settings", "logo.png") ?>" width="14" height="16" class="img-fluid lazyload"> Egegen</a></li>
+            <li><a target="_blank" rel="nofollow" title="Egegen" class="dropdown-item" href="<?= $settings->company_url ?>"><img data-src="<?= get_picture("settings", $settings->img_url) ?>" width="14" height="16" class="img-fluid lazyload"> <?= $settings->company_name ?></a></li>
         </ul>
     </div>
 </div>

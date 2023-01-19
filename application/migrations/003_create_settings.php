@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Migration_Create_user extends CI_Migration
+class Migration_Create_settings extends CI_Migration
 {
 
     public function up()
@@ -14,33 +14,39 @@ class Migration_Create_user extends CI_Migration
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ],
-            'first_name' => [
-                'type' => 'VARCHAR',
-                'constraint' => '70',
-                'null' => TRUE,
-            ],
-            'last_name' => [
-                'type' => 'VARCHAR',
-                'constraint' => '70',
-                'null' => TRUE,
-            ],
-            'email' => [
+            'project_title' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
             ],
-            'password' => [
+            'company_name' => [
                 'type' => 'VARCHAR',
-                'constraint' => '32',
+                'constraint' => '70',
                 'null' => TRUE,
             ],
+            'company_url' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ],
+            'img_url' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ],
+            'status' => [
+                'type' => 'TINYINT',
+                'constraint' => 1,
+                'null' => TRUE,
+                'default' => 1,
+            ]
         ]);
         $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('users', TRUE);
+        $this->dbforge->create_table('settings', TRUE);
     }
 
     public function down()
     {
-        $this->dbforge->drop_table('users', TRUE);
+        $this->dbforge->drop_table('settings', TRUE);
     }
 }
