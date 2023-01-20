@@ -28,7 +28,7 @@ class Login extends CI_Controller
         $this->viewData = new stdClass();
         $this->viewData->viewFolder = "dashboard";
         $this->viewData->subViewFolder = "list";
-        
+
         $this->viewData->settings = get_settings();
     }
 
@@ -70,14 +70,14 @@ class Login extends CI_Controller
                 "users",
                 null,
                 [
-                    "email" => $this->input->post("email", true),
+                    "email" => clean($this->input->post("email", true)),
                 ]
             );
 
-            if ($user && password_verify($this->input->post("password", true), $user->password)) :
+            if ($user && password_verify(clean($this->input->post("password", true)), $user->password)) :
                 $alert = [
                     "title" => lang("success"),
-                    "text" => lang("login_success"),
+                    "text" => lang("login_success") . ". " . lang("welcome") . " " . $user->first_name . " " . $user->last_name,
                     "type" => "success"
                 ];
                 $this->session->set_flashdata("alert", $alert);
@@ -99,6 +99,12 @@ class Login extends CI_Controller
 
     public function logout()
     {
+        $alert = [
+            "title" => lang("success"),
+            "text" => lang("logout_success"),
+            "type" => "success"
+        ];
+        $this->session->set_flashdata("alert", $alert);
         $this->session->unset_userdata("user");
         redirect(base_url("panel/login"));
     }

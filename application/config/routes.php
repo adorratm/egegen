@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -57,7 +57,8 @@ $route['panel'] = 'backend/dashboard';
 $route['panel/login'] = 'backend/login';
 $route['panel/do-login'] = 'backend/login/do_login';
 $route['panel/logout'] = 'backend/login/logout';
+$route['panel/profile/(:num)'] = 'backend/profile/index/$1';
+$route['panel/update-profile/(:num)'] = 'backend/profile/update/$1';
 $route['panel/products'] = 'backend/products';
 $route['panel/product-variations'] = 'backend/product_variations';
 $route['panel/settings'] = 'backend/settings';
-

@@ -1,5 +1,8 @@
 <?php
-
+$lang["github"] = "Github";
+$lang["linkedin"] = "Linkedin";
+$lang["instagram"] = "Instagram";
+$lang["profile"] = "Profile";
 $lang["login"] = "Login";
 $lang["email"] = "Email";
 $lang["password"] = "Password";
@@ -16,3 +19,14 @@ $lang["logout_error"] = "Logout error";
 $lang["logout"] = "Logout";
 $lang["dashboard"] = "Dashboard";
 $lang["settings"] = "Settings";
+$lang["welcome"] = "Welcome";
+$lang["logout_success"] = "Logout success";
+$lang["dashboard"] = "Dashboard";
+$lang["settings"] = "Settings";
+$lang["products"] = "Products";
+$lang["product_variations"] = "Product Variations";
+$lang["first_name"] = "First Name";
+$lang["last_name"] = "Last Name";
+$lang["profile_updated"] = "Profile updated";
+$lang["profile_update_error"] = "Profile update error";
+$lang["user_not_found"] = "User not found";

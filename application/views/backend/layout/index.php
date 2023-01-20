@@ -9,13 +9,10 @@
 </head>
 
 <body>
-    <main class="d-flex flex-nowrap vh-100">
-        <?php $this->load->view("backend/layout/partials/sidebar") ?>
-        <div class="flex-grow-1">
-            <?php $this->load->view("backend/{$viewFolder}/{$subViewFolder}/index"); ?>
-            <?php $this->load->view("backend/layout/partials/footer") ?>
-        </div>
-    </main>
+    <?php $this->load->view("backend/layout/partials/header") ?>
+
+    <?php $this->load->view("backend/{$viewFolder}/{$subViewFolder}/index"); ?>
+    <?php $this->load->view("backend/layout/partials/footer") ?>
     <?php $this->load->view("backend/layout/partials/scripts_bottom") ?>
     <?php $this->load->view("backend/layout/partials/alert") ?>
 </body>
