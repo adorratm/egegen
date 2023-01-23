@@ -30,3 +30,7 @@ $lang["last_name"] = "Last Name";
 $lang["profile_updated"] = "Profile updated";
 $lang["profile_update_error"] = "Profile update error";
 $lang["user_not_found"] = "User not found";
+$lang["update_profile"] = "Update Profile";
+$lang["product_title"] = "Product Title";
+$lang["product_image"] = "Product Image";
+$lang["actions"] = "Actions";

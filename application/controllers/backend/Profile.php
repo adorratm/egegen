@@ -104,9 +104,11 @@ class Profile extends CI_Controller
 							"text" => lang("profile_updated"),
 							"type" => "success"
 						];
-						$this->session->set_flashdata("success", lang("profile_updated"));
+						$user = $this->general_model->get("users", null, ["id" => $id]);
+						if ($user->id == get_active_user()->id) :
+							$this->session->set_userdata("user", $user);
+						endif;
 					endif;
-					redirect(base_url("panel/profile/$id"));
 				endif;
 				if (validation_errors()) :
 					$alert["text"] =  str_replace("<br />\n", "", nl2br(implode(",", array_filter(explode(",", validation_errors()), 'clean'))));
