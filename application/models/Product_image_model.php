@@ -1,46 +1,62 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 #[AllowDynamicProperties]
-class Product_model extends CI_Model
+class Product_image_model extends CI_Model
 {
-    public $tableName = "products";
-    
+    public $tableName = "product_images";
     public function __construct()
     {
         parent::__construct();
-        $this->column_order = ['products.id', 'products.id', 'product_images.img_url', 'products.title'];
+        // Set orderable column fields
+        $this->column_order = ['product_images.rank', 'product_images.id', 'product_images.id', 'product_images.url', 'product_images.url', 'product_images.lang', 'product_images.isCover', 'product_images.isActive', 'product_images.createdAt', 'product_images.updatedAt'];
         // Set searchable column fields
-        $this->column_search = ['products.id', 'products.id', 'product_images.img_url', 'products.title'];
+        $this->column_search = ['product_images.rank', 'product_images.id', 'product_images.id', 'product_images.url', 'product_images.url', 'product_images.lang', 'product_images.isCover', 'product_images.isActive', 'product_images.createdAt', 'product_images.updatedAt'];
         // Set default order
-        $this->order = ['products.id' => 'ASC'];
+        $this->order = ['product_images.rank' => 'ASC'];
     }
-
+    public function get_all($where = [], $order = "id ASC")
+    {
+        return $this->db->where($where)->order_by($order)->get($this->tableName)->result();;
+    }
+    public function add($data = [])
+    {
+        return $this->db->insert($this->tableName, $data);
+    }
     public function get($where = [])
     {
         return $this->db->where($where)->get($this->tableName)->row();
     }
-
-    public function get_all($where = [], $order = "id ASC")
-    {
-        return $this->db->where($where)->order_by($order)->get($this->tableName)->result();
-    }
-
-    public function add($data = [])
-    {
-        $this->db->insert($this->tableName, $data);
-        return $this->db->insert_id();
-    }
-
     public function update($where = [], $data = [])
     {
         return $this->db->where($where)->update($this->tableName, $data);
     }
-
     public function delete($where = [])
     {
         return $this->db->where($where)->delete($this->tableName);
     }
-
+    public function rowCount($where = [])
+    {
+        return $this->db->where($where)->count_all_results($this->tableName);
+    }
+    public function countFiltered($where = [], $postData = null)
+    {
+        $this->_get_datatables_query($postData);
+        $this->db->select('
+            product_images.rank,
+            product_images.id,
+            product_images.codes_id,
+            product_images.codes,
+            product_images.title,
+			product_images.description,
+            product_images.url,
+            product_images.lang,
+            product_images.isCover,
+            product_images.isActive,
+            product_images.createdAt,
+            product_images.updatedAt',    false);
+        $query = $this->db->where($where)->get();
+        return $query->num_rows();
+    }
     public function getRows($where = [], $postData = [])
     {
         if (!empty($where)) :
@@ -50,18 +66,24 @@ class Product_model extends CI_Model
         if ($postData['length'] != -1) :
             $this->db->limit($postData['length'], $postData['start']);
         endif;
+        $this->db->select('
+		product_images.rank,
+		product_images.id,
+        product_images.codes_id,
+        product_images.codes,
+        product_images.title,
+		product_images.description,
+		product_images.url,
+        product_images.lang,
+		product_images.isCover,
+		product_images.isActive,
+		product_images.createdAt,
+        product_images.updatedAt',    false);
         return $this->db->get()->result();
     }
-
     private function _get_datatables_query($postData = [])
     {
-        $this->db->select('
-        products.id id,
-        products.title title,
-        product_images.img_url img_url,
-		',    false);
-        $this->db->join("product_images", "product_images.product_id = products.id", "left");
-        $this->db->where(["products.id!=" => null]);
+        $this->db->where(["product_images.id!=" => null]);
         $this->db->from($this->tableName);
         $i = 0;
         // loop searchable columns
@@ -102,17 +124,5 @@ class Product_model extends CI_Model
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
         endif;
-    }
-
-    public function rowCount($where = [])
-    {
-        return $this->db->where($where)->count_all_results($this->tableName);
-    }
-
-    public function countFiltered($where = [], $postData = null)
-    {
-        $this->_get_datatables_query($postData);
-        $query = $this->db->where($where)->get();
-        return $query->num_rows();
     }
 }

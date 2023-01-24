@@ -492,7 +492,8 @@ function userRole()
     $t->session->set_userdata('user_roles', $roles);
 }
 
-function get_settings(){
+function get_settings()
+{
     $t = &get_instance();
     $settings = $t->general_model->get("settings", null, ['status' => 1]);
     if ($settings) return $settings;
@@ -571,5 +572,53 @@ function rWebp2($dir)
                 endif;
             endif;
         endforeach;
+    endif;
+}
+
+function upload_picture($file, $uploadPath, $resize = [], $allowedTypes = "bmp|gif|jpeg|jpg|jpe|jp2|j2k|jpf|jpg2|jpx|jpm|mj2|mjp2|tiff|tif|svg|ico|png|webp")
+{
+    $t = &get_instance();
+    if (!is_dir("{$uploadPath}")) :
+        mkdir("{$uploadPath}", 0755, true);
+    endif;
+    $config = [];
+    $config["upload_path"] = FCPATH . "{$uploadPath}";
+    $config["allowed_types"] = $allowedTypes;
+    $config["encrypt_name"] = TRUE;
+    $t->load->library("upload", $config);
+    $t->upload->initialize($config);
+    if (!$t->upload->do_upload($file)) :
+        return ["success" => false, "error" => $t->upload->display_errors()];
+    else :
+        if (!empty($resize)) :
+            $image_data =   $t->upload->data();
+            $configer =  [
+                'image_library'   => 'gd2',
+                'source_image'    =>  $image_data['full_path'],
+                'maintain_ratio'  => (!empty($resize["maintain_ratio"]) ? $resize["maintain_ratio"] : FALSE),
+                'height'          => (!empty($resize["height"]) ? $resize["height"] : 1280),
+                'width'           => (!empty($resize["width"]) ? $resize["width"] : 1920),
+                'master_dim'      => (!empty($resize["master_dim"]) ? $resize["master_dim"] : 'height'),
+                'quality'         => '85%'
+            ];
+            $t->image_lib->clear();
+            $t->image_lib->initialize($configer);
+            $t->image_lib->resize();
+        endif;
+        $imageTypes = "bmp|gif|jpeg|jpg|jpe|jp2|j2k|jpf|jpg2|jpx|jpm|mj2|mjp2|tiff|tif|svg|ico|png";
+        $sourceArray = explode(".", $t->upload->data()["file_name"]);
+        $extension = $sourceArray[array_search(end($sourceArray), $sourceArray, true)];
+        $source = null;
+        if (strpos($imageTypes, $extension) !== false) :
+            unset($sourceArray[array_search(end($sourceArray), $sourceArray, true)]);
+            foreach ($sourceArray as $k => $v) :
+                $source .= $v;
+            endforeach;
+            $source .= ".webp";
+            Webp2($config["upload_path"] . DIRECTORY_SEPARATOR . $t->upload->data()["file_name"]);
+        else :
+            $source = $t->upload->data()["file_name"];
+        endif;
+        return ["success" => true, "file_name" => $source];
     endif;
 }

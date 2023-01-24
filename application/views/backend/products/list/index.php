@@ -16,26 +16,21 @@
             <label for="search_button" class="mx-1">
                 <button class="btn btn-sm btn-outline-success rounded-0 " onclick="reloadTable('productTable')" id="search_button" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= lang("search_product") ?>"><i class="fa fa-search"></i></button>
             </label>
-            <label for="delete_button" class="mx-1 toggleLabel d-none">
-                <button class="btn btn-sm btn-outline-danger rounded-0 " data-url="<?= base_url("panel/products/deleteBulk") ?>" id="delete_button" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= lang("delete_selected_products") ?>"><i class="fa fa-trash"></i></button>
-            </label>
         </div>
     </form>
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered table-striped table-light productTable">
-            <thead>
-                <tr>
-                    <th class="w100 text-center align-middle"><?= lang("product_id") ?></th>
-                    <th class="w150 text-center align-middle"><?= lang("product_image") ?></th>
-                    <th class="text-center align-middle"><?= lang("product_title") ?></th>
-                    <th class="w150 text-center align-middle"><?= lang("actions") ?></th>
-                </tr>
-            </thead>
-            <tbody>
+    <table class="table table-hover table-bordered table-striped table-light productTable">
+        <thead>
+            <tr>
+                <th class="w100 text-center align-middle"><?= lang("product_id") ?></th>
+                <th class="w150 text-center align-middle"><?= lang("product_image") ?></th>
+                <th class="text-center align-middle"><?= lang("product_title") ?></th>
+                <th class="w150 text-center align-middle"><?= lang("actions") ?></th>
+            </tr>
+        </thead>
+        <tbody>
 
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>
 
 <script>
