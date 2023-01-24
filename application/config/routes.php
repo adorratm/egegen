@@ -60,5 +60,6 @@ $route['panel/logout'] = 'backend/login/logout';
 $route['panel/profile/(:num)'] = 'backend/profile/index/$1';
 $route['panel/update-profile/(:num)'] = 'backend/profile/update/$1';
 $route['panel/products'] = 'backend/products';
+$route['panel/products/datatable'] = 'backend/products/datatable';
 $route['panel/product-variations'] = 'backend/product_variations';
 $route['panel/settings'] = 'backend/settings';
