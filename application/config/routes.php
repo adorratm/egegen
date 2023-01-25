@@ -61,7 +61,10 @@ $route['panel/profile/(:num)'] = 'backend/profile/index/$1';
 $route['panel/update-profile/(:num)'] = 'backend/profile/update/$1';
 $route['panel/products'] = 'backend/products';
 $route['panel/products/datatable'] = 'backend/products/datatable';
-$route['panel/products/update-form/(:num)'] = 'backend/products/update_form/$1';
+$route['panel/products/create-new-product'] = 'backend/products/new_form';
+$route['panel/products/update-product/(:num)'] = 'backend/products/update_form/$1';
+$route['panel/products/upload-product-image/(:num)'] = 'backend/products/upload_form/$1';
+$route['panel/products/save'] = 'backend/products/save';
 $route['panel/products/update/(:num)'] = 'backend/products/update/$1';
 $route['panel/products/delete/(:num)'] = 'backend/products/delete/$1';
 

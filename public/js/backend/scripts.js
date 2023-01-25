@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function () {
     /** IsCoverSetter */
 
     /** Remove Button */
-    $(document).on('click', '.remove-btn', function(e) {
+    $(document).on('click', '.remove-btn', function (e) {
         let url = $(this).data("url");
         let dataTable = $(this).data("table");
         swal.fire({
@@ -50,10 +50,10 @@ window.addEventListener('DOMContentLoaded', function () {
             cancelButtonColor: '#d33',
             confirmButtonText: lang.yes_delete_it,
             cancelButtonText: lang.no_cancel
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 let formData = new FormData();
-                createAjax(url, formData, function() {
+                createAjax(url, formData, function () {
                     reloadTable(dataTable);
                 });
             }
@@ -61,6 +61,24 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     /** Remove Button */
 });
+
+(function ($) {
+    /** Dropzone */
+    if ($(".dropzone").length > 0) {
+        Dropzone.autoDiscover = false;
+        //;
+        $('.dropzone').each(function (index) {
+            let elem = "#" + $(this).attr("id");
+            let $uploadSection = new Dropzone(elem);
+            $uploadSection.on("complete", function (file) {
+                //console.log(file);
+                let dataTable = $(elem).data("table");
+                reloadTable(dataTable);
+            });
+        });
+    }
+    /** Dropzone */
+})(jQuery);
 
 /**
  * Datatables with server side processing
