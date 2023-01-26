@@ -37,7 +37,7 @@
 <script>
     const lang = {
         "are_you_sure": "<?= lang("are_you_sure") ?>",
-        "you_cannot_turn_back": "<?= lang("you_cannot_turn_back") ?>",
+        "you_cannot_turn_back_this_process": "<?= lang("you_cannot_turn_back_this_process") ?>",
         "yes_delete_it": "<?= lang("yes_delete_it") ?>",
         "no_cancel": "<?= lang("no_cancel") ?>",
 

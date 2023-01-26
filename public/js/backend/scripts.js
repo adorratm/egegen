@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', function () {
         let dataTable = $(this).data("table");
         swal.fire({
             title: lang.are_you_sure,
-            text: lang.you_cannot_turn_back,
+            text: lang.you_cannot_turn_back_this_process,
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

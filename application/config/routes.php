@@ -54,11 +54,21 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['panel'] = 'backend/dashboard';
+/**
+ * User Routes
+ */
 $route['panel/login'] = 'backend/login';
 $route['panel/do-login'] = 'backend/login/do_login';
 $route['panel/logout'] = 'backend/login/logout';
 $route['panel/profile/(:num)'] = 'backend/profile/index/$1';
 $route['panel/update-profile/(:num)'] = 'backend/profile/update/$1';
+/**
+ * #User Routes
+ */
+
+/**
+ * Product Routes
+ */
 $route['panel/products'] = 'backend/products';
 $route['panel/products/datatable'] = 'backend/products/datatable';
 $route['panel/products/create-new-product'] = 'backend/products/new_form';
@@ -67,6 +77,28 @@ $route['panel/products/upload-product-image/(:num)'] = 'backend/products/upload_
 $route['panel/products/save'] = 'backend/products/save';
 $route['panel/products/update/(:num)'] = 'backend/products/update/$1';
 $route['panel/products/delete/(:num)'] = 'backend/products/delete/$1';
+/**
+ * #Product Routes
+ */
 
+/**
+ * Product Variation Routes
+ */
 $route['panel/product-variations'] = 'backend/product_variations';
+$route['panel/product-variations/datatable'] = 'backend/product_variations/datatable';
+$route['panel/product-variations/create-new-product-variation'] = 'backend/product_variations/new_form';
+$route['panel/product-variations/update-product-variation/(:num)'] = 'backend/product_variations/update_form/$1';
+$route['panel/product-variations/save'] = 'backend/product_variations/save';
+$route['panel/product-variations/update/(:num)'] = 'backend/product_variations/update/$1';
+$route['panel/product-variations/delete/(:num)'] = 'backend/product_variations/delete/$1';
+/**
+ * #Product Variation Routes
+ */
+
+/**
+ * Settings Routes
+ */
 $route['panel/settings'] = 'backend/settings';
+/**
+ * #Settings Routes
+ */
