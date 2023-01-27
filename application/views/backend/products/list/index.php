@@ -22,7 +22,7 @@
         <thead>
             <tr>
                 <th class="w100 text-center align-middle"><?= lang("product_id") ?></th>
-                <th class="w150 text-center align-middle"><?= lang("product_image") ?></th>
+                <th class="w150 text-center align-middle nosort"><?= lang("product_image") ?></th>
                 <th class="text-center align-middle"><?= lang("product_title") ?></th>
                 <th class="w75 text-center align-middle nosort"><?= lang("actions") ?></th>
             </tr>
