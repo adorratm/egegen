@@ -98,6 +98,7 @@ $lang["image_upload_error"] = "Image upload error";
 $lang["upload_image"] = "Upload Image";
 $lang["image_is_cover"] = "Image is cover now";
 $lang["image_is_cover_error"] = "Image is cover error";
+$lang["delete_product_image"] = "Delete Product Image";
 
 /**
  * Product Variations

@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
     /** IsCoverSetter */
-    $(document).on('change', '.isCover', function () {
+    $(document).on('change', '.is_cover', function () {
         let id = $(this).data("id");
         let url = $(this).data("url");
         let dataTable = $(this).data("table");

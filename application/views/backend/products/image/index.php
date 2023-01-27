@@ -2,7 +2,7 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <form data-table="detailTable" action="<?= base_url("products/file_upload/$item->id"); ?>" id="dropzone" class="dropzone" data-plugin="dropzone" data-options="{ url: '<?= base_url("products/file_upload/$item->id"); ?>'}">
+            <form data-table="imageTable" action="<?= base_url("panel/products/file-upload/$item->id"); ?>" id="dropzone" class="dropzone" data-plugin="dropzone" data-options="{ url: '<?= base_url("panel/products/file-upload/$item->id"); ?>'}">
                 <div class="dz-message">
                     <h3><?= lang("drag_the_files_you_want_to_upload_here") ?></h3>
                     <p class="mb-3 text-muted">(<?= lang("drag_your_files_or_click_here_to_upload") ?>)</p>
@@ -50,6 +50,6 @@
 
 <script>
     window.addEventListener('DOMContentLoaded', function() {
-        TableInitializer("imageTable", obj, "<?= base_url("panel/products/image_datatable/{$item->id}") ?>", true);
+        TableInitializer("imageTable", obj, "<?= base_url("panel/products/image-datatable/{$item->id}") ?>", true);
     });
 </script>

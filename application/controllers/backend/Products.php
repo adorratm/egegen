@@ -66,7 +66,8 @@ class Products extends CI_Controller
 						<a class="dropdown-item remove-btn" href="javascript:void(0)" data-table="productTable" data-url="' . base_url("panel/products/delete/$item->id") . '"><i class="fa fa-trash me-2"></i>' . lang("delete_product") . '</a>
                     </div>
                 </div>';
-				$data[] = [$item->id, $item->img_url, $item->title, $actions];
+				$image = '<img data-src="' . get_picture($this->viewData->viewFolder, $item->img_url) . '" width="150" class="lazyload img-fluid">';
+				$data[] = [$item->id, $image, $item->title, $actions];
 			endforeach;
 		endif;
 		$output = [
@@ -150,8 +151,8 @@ class Products extends CI_Controller
 				if (!empty($images)) :
 					foreach ($images as $key => $image) :
 						if (!empty($image->img_url)) :
-							if (!is_dir(FCPATH . "uploads/{$this->viewData->viewFolder}/{$image->img_url}") && file_exists(FCPATH . "uploads/{$this->viewData->viewFolder}/{$image->img_url}")) :
-								unlink(FCPATH . "uploads/{$this->viewData->viewFolder}/{$image->img_url}");
+							if (!is_dir(FCPATH . "public/uploads/{$this->viewData->viewFolder}/{$image->img_url}") && file_exists(FCPATH . "public/uploads/{$this->viewData->viewFolder}/{$image->img_url}")) :
+								unlink(FCPATH . "public/uploads/{$this->viewData->viewFolder}/{$image->img_url}");
 							endif;
 						endif;
 					endforeach;
@@ -164,7 +165,7 @@ class Products extends CI_Controller
 	}
 
 	// Image Datatable
-	public function imageDatatable($id)
+	public function image_datatable($id)
 	{
 		$items = $this->product_image_model->getRows(
 			["product_id" => $id],
@@ -175,19 +176,18 @@ class Products extends CI_Controller
 		if (!empty($items)) :
 			foreach ($items as $item) :
 				$i++;
-				$proccessing = '
+				$actions = '
                 <div class="dropdown">
-                    <button class="btn btn-sm btn-outline-primary rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        İşlemler
+                    <button class="btn btn-sm btn-outline-primary rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ' . lang("actions") . '
                     </button>
                     <div class="dropdown-menu rounded-0 dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item remove-btn" href="javascript:void(0)" data-table="detailTable" data-url="' . base_url("products/fileDelete/{$item->id}") . '"><i class="fa fa-trash mr-2"></i>Kaydı Sil</a>
-					</div>
+						<a class="dropdown-item remove-btn" href="javascript:void(0)" data-table="imageTable" data-url="' . base_url("panel/products/file-delete/$item->id") . '"><i class="fa fa-trash me-2"></i>' . lang("delete_product_image") . '</a>
+                    </div>
                 </div>';
-				$checkbox = '<div class="custom-control custom-switch"><input data-id="' . $item->id . '" data-url="' . base_url("products/fileIsActiveSetter/{$item->id}") . '" data-status="' . ($item->isActive == 1 ? "checked" : null) . '" id="customSwitch' . $i . '" type="checkbox" ' . ($item->isActive == 1 ? "checked" : null) . ' class="my-check custom-control-input" >  <label class="custom-control-label" for="customSwitch' . $i . '"></label></div>';
-				$checkbox2 = '<div class="custom-control custom-switch"><input data-id="' . $item->id . '" data-table="detailTable" data-url="' . base_url("products/fileIsCoverSetter/{$item->id}/$item->codes_id/$item->codes/$item->lang") . '" data-status="' . ($item->isCover == 1 ? "checked" : null) . '" id="customSwitch2' . $i . '" type="checkbox" ' . ($item->isCover == 1 ? "checked" : null) . ' class="isCover custom-control-input" >  <label class="custom-control-label" for="customSwitch2' . $i . '"></label></div>';
-				$image = '<img data-src="' . base_url("uploads/{$this->viewFolder}/{$item->url}") . '" width="150" class="lazyload img-fluid">';
-				$data[] = [$item->rank, '<i class="fa fa-arrows" data-id="' . $item->id . '"></i>', $item->id, $image, $item->url, $item->lang, $checkbox2, $checkbox, turkishDate("d F Y, l H:i:s", $item->createdAt), turkishDate("d F Y, l H:i:s", $item->updatedAt), $proccessing];
+				$checkbox = '<div class="form-check form-switch d-flex justify-content-center"><input data-id="' . $item->id . '" data-table="imageTable" data-url="' . base_url("panel/products/file-cover/{$item->id}") . '" data-status="' . ($item->is_cover == 1 ? "checked" : null) . '" id="flexSwitchCheckDefault2' . $i . '" type="checkbox" ' . ($item->is_cover == 1 ? "checked" : null) . ' class="is_cover form-check-input" >  <label class="form-check-label" for="flexSwitchCheckDefault2' . $i . '"></label></div>';
+				$image = '<img data-src="' . get_picture($this->viewData->viewFolder, $item->img_url) . '" width="150" class="lazyload img-fluid">';
+				$data[] = [$item->id, $image, $item->img_url, $checkbox, $actions];
 			endforeach;
 		endif;
 		$output = [
@@ -213,11 +213,11 @@ class Products extends CI_Controller
 	public function file_upload($id)
 	{
 		$resize = ['height' => 1000, 'width' => 1000, 'maintain_ratio' => FALSE, 'master_dim' => 'height'];
-		$image = upload_picture("file", "uploads/{$this->viewData->viewFolder}/", $resize, "*");
+		$image = upload_picture("file", "public/uploads/{$this->viewData->viewFolder}/", $resize, "*");
 		if ($image["success"]) :
 			$this->product_image_model->add(
 				[
-					"url"           => $image["file_name"],
+					"img_url"           => $image["file_name"],
 					"product_id"      => $id,
 				]
 			);
@@ -227,12 +227,12 @@ class Products extends CI_Controller
 	}
 
 	// Delete Product Image
-	public function fileDelete($id)
+	public function file_delete($id)
 	{
 		$fileName = $this->product_image_model->get(["id" => $id]);
 		$delete = $this->product_image_model->delete(["id" => $id]);
 		if ($delete) :
-			$url = FCPATH . "uploads/{$this->viewData->viewFolder}/{$fileName->img_url}";
+			$url = FCPATH . "public/uploads/{$this->viewData->viewFolder}/{$fileName->img_url}";
 			if (!is_dir($url) && file_exists($url)) :
 				unlink($url);
 			endif;
@@ -243,12 +243,12 @@ class Products extends CI_Controller
 	}
 
 	// Set Cover Image
-	public function fileIsCoverSetter($id)
+	public function file_is_cover_setter($id)
 	{
 		if (!empty($id)) :
-			$isCover = (intval($this->input->post("data")) === 1) ? 1 : 0;
-			if ($this->product_image_model->update(["id" => $id], ["isCover" => $isCover])) :
-				$this->product_image_model->update(["id!=" => $id], ["isCover" => 0]);
+			$is_cover = (intval($this->input->post("data")) === 1) ? 1 : 0;
+			if ($this->product_image_model->update(["id" => $id], ["is_cover" => $is_cover])) :
+				$this->product_image_model->update(["id!=" => $id], ["is_cover" => 0]);
 				echo json_encode(["success" => True, "title" => lang("success"), "msg" => lang("image_is_cover")]);
 			else :
 				echo json_encode(["success" => False, "title" => lang("error"), "msg" => lang("image_is_cover_error")]);

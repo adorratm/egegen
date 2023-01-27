@@ -8,11 +8,11 @@ class Product_image_model extends CI_Model
     {
         parent::__construct();
         // Set orderable column fields
-        $this->column_order = ['product_images.rank', 'product_images.id', 'product_images.id', 'product_images.url', 'product_images.url', 'product_images.lang', 'product_images.isCover', 'product_images.isActive', 'product_images.createdAt', 'product_images.updatedAt'];
+        $this->column_order = ['product_images.id', 'product_images.id', 'product_images.img_url', 'product_images.url',  'product_images.is_cover', 'product_images.isActive', 'product_images.createdAt', 'product_images.updatedAt'];
         // Set searchable column fields
-        $this->column_search = ['product_images.rank', 'product_images.id', 'product_images.id', 'product_images.url', 'product_images.url', 'product_images.lang', 'product_images.isCover', 'product_images.isActive', 'product_images.createdAt', 'product_images.updatedAt'];
+        $this->column_search = ['product_images.id', 'product_images.id', 'product_images.img_url', 'product_images.url', 'product_images.is_cover', 'product_images.isActive', 'product_images.createdAt', 'product_images.updatedAt'];
         // Set default order
-        $this->order = ['product_images.rank' => 'ASC'];
+        $this->order = ['product_images.id' => 'ASC'];
     }
     public function get_all($where = [], $order = "id ASC")
     {
@@ -42,18 +42,9 @@ class Product_image_model extends CI_Model
     {
         $this->_get_datatables_query($postData);
         $this->db->select('
-            product_images.rank,
             product_images.id,
-            product_images.codes_id,
-            product_images.codes,
-            product_images.title,
-			product_images.description,
-            product_images.url,
-            product_images.lang,
-            product_images.isCover,
-            product_images.isActive,
-            product_images.createdAt,
-            product_images.updatedAt',    false);
+            product_images.img_url,
+            product_images.is_cover',    false);
         $query = $this->db->where($where)->get();
         return $query->num_rows();
     }
@@ -67,18 +58,9 @@ class Product_image_model extends CI_Model
             $this->db->limit($postData['length'], $postData['start']);
         endif;
         $this->db->select('
-		product_images.rank,
-		product_images.id,
-        product_images.codes_id,
-        product_images.codes,
-        product_images.title,
-		product_images.description,
-		product_images.url,
-        product_images.lang,
-		product_images.isCover,
-		product_images.isActive,
-		product_images.createdAt,
-        product_images.updatedAt',    false);
+        product_images.id,
+        product_images.img_url,
+        product_images.is_cover',    false);
         return $this->db->get()->result();
     }
     private function _get_datatables_query($postData = [])

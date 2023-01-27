@@ -77,6 +77,10 @@ $route['panel/products/upload-product-image/(:num)'] = 'backend/products/upload_
 $route['panel/products/save'] = 'backend/products/save';
 $route['panel/products/update/(:num)'] = 'backend/products/update/$1';
 $route['panel/products/delete/(:num)'] = 'backend/products/delete/$1';
+$route['panel/products/image-datatable/(:num)'] = 'backend/products/image_datatable/$1';
+$route['panel/products/file-delete/(:num)'] = 'backend/products/file_delete/$1';
+$route['panel/products/file-cover/(:num)'] = 'backend/products/file_is_cover_setter/$1';
+$route['panel/products/file-upload/(:num)'] = 'backend/products/file_upload/$1';
 /**
  * #Product Routes
  */
