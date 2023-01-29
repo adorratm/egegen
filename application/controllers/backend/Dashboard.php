@@ -20,8 +20,10 @@ class Dashboard extends CI_Controller
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 
+	// Variables
 	public $viewData = null;
 
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
@@ -29,16 +31,18 @@ class Dashboard extends CI_Controller
 		$this->viewData->viewFolder = "dashboard";
 		$this->viewData->subViewFolder = "list";
 		if (!get_active_user()) :
-            redirect(base_url("panel/login"));
-        endif;
+			redirect(base_url("panel/login"));
+		endif;
 		$this->viewData->settings = get_settings();
 	}
 
+	// Index
 	public function index()
 	{
 		$this->render();
 	}
 
+	// Render
 	public function render()
 	{
 		$this->load->view('backend/layout/index', (array)$this->viewData);

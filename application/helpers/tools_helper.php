@@ -495,7 +495,7 @@ function userRole()
 function get_settings()
 {
     $t = &get_instance();
-    $settings = $t->general_model->get("settings", null, ['status' => 1]);
+    $settings = $t->general_model->get("settings");
     if ($settings) return $settings;
 }
 

@@ -13,6 +13,23 @@
                     </div>
                 </div>
             </div>
+            <?php if (!empty($product_variations)) : ?>
+                <?php $arrayOfSubVariations = !empty($item->childs) ? json_decode($item->childs) : [] ?>
+                <div class="col-lg-12">
+                    <div class="row g-3 align-items-center align-self-center align-content-center">
+                        <div class="col-5">
+                            <label class="my-0 me-1 fw-semibold" for="childs"><?= lang("product_variation_subs") ?> : </label>
+                        </div>
+                        <div class="col-7 position-relative">
+                            <select name="childs[]" id="childs" class="form-control tagsInput" multiple>
+                                <?php foreach ($product_variations as $key => $value) : ?>
+                                    <option <?= in_array($value->id, $arrayOfSubVariations) ? "selected" : null ?> value="<?= $value->id ?>"><?= $value->title ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            <?php endif ?>
             <div class="col-lg-12">
                 <div class="row g-3 align-items-center align-self-center align-content-center">
                     <div class="col-5">
@@ -23,3 +40,17 @@
         </div>
     </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $(".tagsInput").select2({
+            allowClear: true,
+            width: 'resolve',
+            theme: "classic",
+            tags: false,
+            tokenSeparators: [',', ' '],
+            dropdownParent: $("#updateProductVariation").find("#childs").parent(),
+            placeholder: "<?= lang("choose_product_variation_subs") ?>"
+        });
+    });
+</script>

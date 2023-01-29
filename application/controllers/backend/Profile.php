@@ -20,8 +20,10 @@ class Profile extends CI_Controller
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 
+	// Variables
 	public $viewData = null;
 
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
@@ -34,6 +36,7 @@ class Profile extends CI_Controller
 		$this->viewData->settings = get_settings();
 	}
 
+	// Index
 	public function index($id = null)
 	{
 		$alert = [
@@ -53,11 +56,13 @@ class Profile extends CI_Controller
 		redirect(base_url("panel"));
 	}
 
+	// Render
 	public function render()
 	{
 		$this->load->view('backend/layout/index', (array)$this->viewData);
 	}
 
+	// Update
 	public function update($id = null)
 	{
 		$alert = [

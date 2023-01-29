@@ -20,8 +20,10 @@ class Product_variations extends CI_Controller
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 
+	// Variables
 	public $viewData = null;
 
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
@@ -29,17 +31,19 @@ class Product_variations extends CI_Controller
 		$this->viewData->viewFolder = "product-variations";
 		$this->viewData->subViewFolder = "list";
 		if (!get_active_user()) :
-            redirect(base_url("panel/login"));
-        endif;
+			redirect(base_url("panel/login"));
+		endif;
 		$this->viewData->settings = get_settings();
 		$this->load->model("product_variation_model");
 	}
 
+	// Index
 	public function index()
 	{
 		$this->render();
 	}
 
+	// Render
 	public function render()
 	{
 		$this->load->view('backend/layout/index', (array)$this->viewData);
@@ -75,13 +79,14 @@ class Product_variations extends CI_Controller
 		];
 		// Output to JSON format
 		echo json_encode($output);
+		return;
 	}
 
-	// Add Form
+	// New Form
 	public function new_form()
 	{
 		$this->viewData->subViewFolder = "add";
-		$this->viewData->settings = $this->general_model->get_all("settings", null, null, ["status" => 1]);
+		$this->viewData->product_variations = $this->general_model->get_all("product_variations");
 		$this->load->view("backend/{$this->viewData->viewFolder}/{$this->viewData->subViewFolder}/index", (array)$this->viewData);
 	}
 
@@ -89,11 +94,13 @@ class Product_variations extends CI_Controller
 	public function save()
 	{
 		$this->load->library("form_validation");
-		$this->form_validation->set_rules("title", lang("title"), "required|trim");
+		$this->form_validation->set_rules("title", lang("product_variation_title"), "required|trim");
+		$this->form_validation->set_rules("childs[]", lang("product_variation_subs"), "trim");
 		$validate = $this->form_validation->run();
 		if ($validate) :
 			$data = [
 				"title" => clean($this->input->post("title", true)),
+				"childs" => !empty($this->input->post("childs[]", true)) ? json_encode($this->input->post("childs[]", true)) : null,
 			];
 			$insert = $this->product_variation_model->add($data);
 			if ($insert) :
@@ -104,6 +111,7 @@ class Product_variations extends CI_Controller
 			return;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => str_replace("<br />\n", "", nl2br(implode(",", array_filter(explode(",", validation_errors()), 'clean'))))]);
+		return;
 	}
 
 	// Update Form
@@ -111,7 +119,7 @@ class Product_variations extends CI_Controller
 	{
 		$this->viewData->subViewFolder = "update";
 		$this->viewData->item = $this->product_variation_model->get(["id" => $id]);
-		$this->viewData->settings = $this->general_model->get_all("settings", null, null, ["status" => 1]);
+		$this->viewData->product_variations = $this->general_model->get_all("product_variations", null, null, ['id !=' => $id]);
 		$this->load->view("backend/{$this->viewData->viewFolder}/{$this->viewData->subViewFolder}/index", (array)$this->viewData);
 	}
 
@@ -120,11 +128,13 @@ class Product_variations extends CI_Controller
 	{
 		$this->load->library("form_validation");
 		$this->form_validation->set_rules("title", lang("title"), "required|trim");
+		$this->form_validation->set_rules("childs[]", lang("product_variation_subs"), "trim");
 		$validate = $this->form_validation->run();
 
 		if ($validate) :
 			$data = [
 				"title" => clean($this->input->post("title", true)),
+				"childs" => !empty($this->input->post("childs[]", true)) ? json_encode($this->input->post("childs[]", true)) : null,
 			];
 			$update = $this->product_variation_model->update(["id" => $id], $data);
 			if ($update) :
@@ -135,6 +145,7 @@ class Product_variations extends CI_Controller
 			return;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => str_replace("<br />\n", "", nl2br(implode(",", array_filter(explode(",", validation_errors()), 'clean'))))]);
+		return;
 	}
 
 	// Delete Product Variation
@@ -149,5 +160,6 @@ class Product_variations extends CI_Controller
 			endif;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => lang("product_variation_delete_error")]);
+		return;
 	}
 }

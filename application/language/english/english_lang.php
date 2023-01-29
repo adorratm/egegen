@@ -31,8 +31,6 @@ $lang["logout"] = "Logout";
  * Menu
  */
 $lang["dashboard"] = "Dashboard";
-$lang["settings"] = "Settings";
-$lang["dashboard"] = "Dashboard";
 
 /**
  * Profile
@@ -76,8 +74,6 @@ $lang["product_updated_successfully"] = "Product updated successfully";
 $lang["product_update_error"] = "Product update error";
 $lang["product_deleted"] = "Product deleted";
 $lang["product_delete_error"] = "Product delete error";
-$lang["product_updated"] = "Product updated";
-$lang["product_update_error"] = "Product update error";
 $lang["product_created"] = "Product created";
 $lang["product_create_error"] = "Product create error";
 
@@ -118,7 +114,25 @@ $lang["product_variation_updated_successfully"] = "Product Variation updated suc
 $lang["product_variation_update_error"] = "Product Variation update error";
 $lang["product_variation_deleted"] = "Product Variation deleted";
 $lang["product_variation_delete_error"] = "Product Variation delete error";
-$lang["product_variation_updated"] = "Product Variation updated";
-$lang["product_variation_update_error"] = "Product Variation update error";
 $lang["product_variation_created"] = "Product Variation created";
 $lang["product_variation_create_error"] = "Product Variation create error";
+$lang["product_variation_subs"] = "Product Variation Subs";
+$lang["choose_product_variation_subs"] = "Choose Product Variation Subs";
+$lang["choose_product_variations"] = "Choose Product Variations";
+
+/**
+ * Settings
+ */
+$lang["settings"] = "Settings";
+$lang["settings_id"] = "Settings ID";
+$lang["project_title"] = "Project Title";
+$lang["search_settings"] = "Search Settings";
+$lang["edit_settings"] = "Edit Settings";
+$lang["update_settings"] = "Update Settings";
+$lang["settings_updated_successfully"] = "Settings updated successfully";
+$lang["settings_update_error"] = "Settings update error";
+$lang["company_name"] = "Company Name";
+$lang["company_url"] = "Company URL";
+$lang["img_url"] = "Image URL";
+$lang["settings_image_deleted_successfully"] = "Settings image deleted successfully";
+$lang["settings_image_delete_error"] = "Settings image delete error";

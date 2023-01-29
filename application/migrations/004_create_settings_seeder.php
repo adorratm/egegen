@@ -13,8 +13,7 @@ class Migration_Create_settings_seeder extends CI_Migration
             'project_title' => 'Egegen Job Application Task',
             'company_name' => 'Egegen',
             'company_url' => 'https://egegen.com/',
-            'img_url' => NULL,
-            'status' => 1,
+            'img_url' => NULL
         ];
     }
 

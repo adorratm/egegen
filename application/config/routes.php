@@ -103,6 +103,10 @@ $route['panel/product-variations/delete/(:num)'] = 'backend/product_variations/d
  * Settings Routes
  */
 $route['panel/settings'] = 'backend/settings';
+$route['panel/settings/datatable'] = 'backend/settings/datatable';
+$route['panel/settings/update-settings/(:num)'] = 'backend/settings/update_form/$1';
+$route['panel/settings/update/(:num)'] = 'backend/settings/update/$1';
+$route['panel/settings/delete-image/(:num)'] = 'backend/settings/delete_settings_image/$1';
 /**
  * #Settings Routes
  */

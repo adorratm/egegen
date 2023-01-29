@@ -33,12 +33,6 @@ class Migration_Create_settings extends CI_Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
-            ],
-            'status' => [
-                'type' => 'TINYINT',
-                'constraint' => 1,
-                'null' => TRUE,
-                'default' => 1,
             ]
         ]);
         $this->dbforge->add_key('id', TRUE);

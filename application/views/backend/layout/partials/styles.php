@@ -29,8 +29,12 @@
 <!-- #DataTables -->
 
 <!-- Dropzone -->
-<link type="text/css" href="<?= base_url("public/css/backend/dropzone.min.css") ?>" rel="stylesheet">
+<link type="text/css" href="<?= base_url("public/css/backend/dropzone.min.css") ?>" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <!-- #Dropzone -->
+
+<!-- Select2 -->
+<link type="text/css" href="<?= base_url("public/css/backend/select2.min.css") ?>" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<!-- #Select2 -->
 
 <!-- Custom Style -->
 <link type="text/css" href="<?= base_url("public/css/backend/style.css") ?>" rel="stylesheet">

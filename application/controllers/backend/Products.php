@@ -20,8 +20,10 @@ class Products extends CI_Controller
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 
+	// Variables
 	public $viewData = null;
 
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
@@ -36,11 +38,13 @@ class Products extends CI_Controller
 		$this->load->model("product_image_model");
 	}
 
+	// Index
 	public function index()
 	{
 		$this->render();
 	}
 
+	// Render
 	public function render()
 	{
 		$this->load->view('backend/layout/index', (array)$this->viewData);
@@ -78,13 +82,14 @@ class Products extends CI_Controller
 		];
 		// Output to JSON format
 		echo json_encode($output);
+		return;
 	}
 
-	// Add Form
+	// New Form
 	public function new_form()
 	{
 		$this->viewData->subViewFolder = "add";
-		$this->viewData->settings = $this->general_model->get_all("settings", null, null, ["status" => 1]);
+		$this->viewData->product_variations = $this->general_model->get_all("product_variations");
 		$this->load->view("backend/{$this->viewData->viewFolder}/{$this->viewData->subViewFolder}/index", (array)$this->viewData);
 	}
 
@@ -100,6 +105,12 @@ class Products extends CI_Controller
 			];
 			$insert = $this->product_model->add($data);
 			if ($insert) :
+				$variations = $this->input->post("variations[]", true);
+				if (!empty($variations)) :
+					foreach ($variations as $variation) :
+						$this->general_model->add("product_w_variations", ["product_id" => $insert, "variation_id" => $variation]);
+					endforeach;
+				endif;
 				echo json_encode(["success" => true, "title" => lang("success"), "message" => lang("product_added_successfully")]);
 				return;
 			endif;
@@ -107,6 +118,7 @@ class Products extends CI_Controller
 			return;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => str_replace("<br />\n", "", nl2br(implode(",", array_filter(explode(",", validation_errors()), 'clean'))))]);
+		return;
 	}
 
 	// Update Form
@@ -114,7 +126,13 @@ class Products extends CI_Controller
 	{
 		$this->viewData->subViewFolder = "update";
 		$this->viewData->item = $this->product_model->get(["id" => $id]);
-		$this->viewData->settings = $this->general_model->get_all("settings", null, null, ["status" => 1]);
+		$this->viewData->product_variations = $this->general_model->get_all("product_variations");
+		$this->viewData->available_variations = $this->general_model->get_all("product_w_variations", "variation_id", null, ["product_id" => $id]);
+		if (!empty($this->viewData->available_variations)) :
+			foreach ($this->viewData->available_variations as $variation) :
+				$this->viewData->available_variation_ids[] = $variation->variation_id;
+			endforeach;
+		endif;
 		$this->load->view("backend/{$this->viewData->viewFolder}/{$this->viewData->subViewFolder}/index", (array)$this->viewData);
 	}
 
@@ -129,8 +147,16 @@ class Products extends CI_Controller
 			$data = [
 				"title" => clean($this->input->post("title", true)),
 			];
+
 			$update = $this->product_model->update(["id" => $id], $data);
 			if ($update) :
+				$this->general_model->delete("product_w_variations", ["product_id" => $id]);
+				$variations = $this->input->post("variations[]", true);
+				if (!empty($variations)) :
+					foreach ($variations as $variation) :
+						$this->general_model->add("product_w_variations", ["product_id" => $id, "variation_id" => $variation]);
+					endforeach;
+				endif;
 				echo json_encode(["success" => true, "title" => lang("success"), "message" => lang("product_updated_successfully")]);
 				return;
 			endif;
@@ -138,6 +164,7 @@ class Products extends CI_Controller
 			return;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => str_replace("<br />\n", "", nl2br(implode(",", array_filter(explode(",", validation_errors()), 'clean'))))]);
+		return;
 	}
 
 	// Delete Product
@@ -147,6 +174,7 @@ class Products extends CI_Controller
 		if (!empty($product)) :
 			$delete = $this->product_model->delete(["id" => $id]);
 			if ($delete) :
+				$this->general_model->delete("product_w_variations", ["product_id" => $id]);
 				$images = $this->product_image_model->get_all(["product_id" => $id]);
 				if (!empty($images)) :
 					foreach ($images as $key => $image) :
@@ -162,6 +190,7 @@ class Products extends CI_Controller
 			endif;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => lang("product_delete_error")]);
+		return;
 	}
 
 	// Image Datatable
@@ -198,6 +227,7 @@ class Products extends CI_Controller
 		];
 		// Output to JSON format
 		echo json_encode($output);
+		return;
 	}
 
 	// Upload Form
@@ -240,6 +270,7 @@ class Products extends CI_Controller
 			return;
 		endif;
 		echo json_encode(["success" => false, "title" => lang("error"), "message" => lang("image_delete_error")]);
+		return;
 	}
 
 	// Set Cover Image
@@ -254,5 +285,6 @@ class Products extends CI_Controller
 				echo json_encode(["success" => False, "title" => lang("error"), "msg" => lang("image_is_cover_error")]);
 			endif;
 		endif;
+		return;
 	}
 }

@@ -19,6 +19,10 @@ class Migration_Create_product_variations extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ],
+            'childs' => [
+                'type' => 'LONGTEXT',
+                'null' => TRUE,
+            ],
         ]);
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('product_variations', TRUE);

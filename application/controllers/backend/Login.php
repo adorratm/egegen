@@ -20,8 +20,10 @@ class Login extends CI_Controller
      * @see https://codeigniter.com/userguide3/general/urls.html
      */
 
+    // Variables
     public $viewData = null;
 
+    // Constructor
     public function __construct()
     {
         parent::__construct();
@@ -32,6 +34,7 @@ class Login extends CI_Controller
         $this->viewData->settings = get_settings();
     }
 
+    // Index
     public function index()
     {
         if (get_active_user()) :
@@ -40,6 +43,7 @@ class Login extends CI_Controller
         $this->render();
     }
 
+    // Render
     public function render()
     {
         if (get_active_user()) :
@@ -48,6 +52,7 @@ class Login extends CI_Controller
         $this->load->view('backend/layout/login', (array)$this->viewData);
     }
 
+    // Login
     public function do_login()
     {
         if (get_active_user()) :
@@ -97,6 +102,7 @@ class Login extends CI_Controller
         redirect(base_url("panel/login"));
     }
 
+    // Logout
     public function logout()
     {
         $alert = [
